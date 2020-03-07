@@ -1,0 +1,23 @@
+version: "3"
+
+services:
+  mysql:
+    build: ./bin/mysql
+    container_name: 'png-mysql'
+    restart: 'always'
+    ports:
+      - "3306:3306"
+    volumes:
+      - ${MYSQL_DATA_DIR-./data/mysql}:/var/lib/mysql
+      - ${MYSQL_LOG_DIR-./logs/mysql}:/var/log/mysql
+      - ./mysqld.cnf:/etc/mysql/mysql.conf.d/mysqld.cnf
+    environment:
+      MYSQL_ROOT_PASSWORD: wefaceweface
+      MYSQL_DATABASE: png
+      MYSQL_USER: png
+      MYSQL_PASSWORD: png
+  redis:
+    container_name: 'png-redis'
+    image: redis:latest
+    ports:
+      - "6379:6379"
